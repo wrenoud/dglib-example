@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     DgGeoCoord vert0(11.25L, 58.28252559L, false);
     double azimuthDegs = 0;
     int aperture = 7;
-    int actualRes = 9;
+    int actualRes = 16;
     DgGridTopology gridTopo = DgGridTopology::Hexagon;
     DgGridMetric gridMetric = DgGridMetric::D6;
     std::string name = "IGEO7";
