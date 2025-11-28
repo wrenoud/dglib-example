@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
     // Test point in degrees
     DgDVec2D testPoint{5.1214106, 52.0906107};
-    auto locationGeo = geographicDegRF->makeLocation(testPoint);
+    auto locationGeo = std::unique_ptr<DgLocation>(geographicDegRF->makeLocation(testPoint));
 
     // Convert to the DGG's RF
     DgLocation locationDgg(*locationGeo);
