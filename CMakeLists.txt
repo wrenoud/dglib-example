@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 4.0)
-project(dggrid_experiment)
+project(dglib-example)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -12,6 +12,6 @@ FetchContent_Declare(dggrid
 FetchContent_MakeAvailable(dggrid)
 
 
-add_executable(dggrid_experiment main.cpp)
+add_executable(dglib-example main.cpp)
 
-target_link_libraries(dggrid_experiment PRIVATE dglib)
+target_link_libraries(dglib-example PRIVATE dglib)
