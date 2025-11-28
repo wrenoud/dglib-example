@@ -15,13 +15,13 @@ int main(int argc, char *argv[]) {
 
     // Geographic reference frame parameters
     const std::string datum("WGS84_AUTHALIC_SPHERE");
-    double earthRadius = 6371.0071809184747;
+    double earthRadius = WGS84_AUTHALIC_RADIUS_KM;
 
     auto *geographicRF = DgGeoSphRF::makeRF(network, datum, earthRadius);
     auto *geographicDegRF = DgGeoSphDegRF::makeRF(*geographicRF);
 
     // IGEO7 parameters
-    DgDVec2D vert0{0.19634954084936207, 1.0172219679233507};
+    DgGeoCoord vert0(11.25L, 58.28252559L, false);
     double azimuthDegs = 0;
     int aperture = 7;
     int actualRes = 9;
