@@ -8,7 +8,7 @@ include(FetchContent)
 set(WITH_GDAL off)
 FetchContent_Declare(dggrid
     GIT_REPOSITORY https://github.com/sahrk/DGGRID.git
-    GIT_TAG v8.42)              # or "master" for latest
+    GIT_TAG v8.42)
 FetchContent_MakeAvailable(dggrid)
 
 
