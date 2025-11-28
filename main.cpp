@@ -62,5 +62,12 @@ int main(int argc, char *argv[]) {
     auto addressZ7 = static_cast<const DgAddress<DgZ7Coord> *>(locationZ7.address());
     std::cout << "Z7 index (base10): " << addressZ7->address().value() << "\n";
 
+   //        Test point: (5.121410600, 52.090610700)
+   //
+   //       Zone center: (5.121410625, 52.090616511)
+   //       DGG Zone ID: IGEO716{q03:(42649, 5119994)}
+   // Z7 index (base16): 01816ee990b21fff
+   // Z7 index (base10): 108489815467630591
+
     return 0;
 }
