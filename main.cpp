@@ -10,14 +10,15 @@
 #include <dglib/DgZ7StringRF.h>
 
 int main(int argc, char *argv[]) {
+    // DgRFNetwork is responsible for memory management, so no need to manage the raw pointers here.
     DgRFNetwork network;
 
     // Geographic reference frame parameters
     const std::string datum("WGS84_AUTHALIC_SPHERE");
     double earthRadius = 6371.0071809184747;
 
-    auto geographicRF = std::unique_ptr<const DgGeoSphRF>(DgGeoSphRF::makeRF(network, datum, earthRadius));
-    auto geographicDegRF = std::unique_ptr<const DgGeoSphDegRF>(DgGeoSphDegRF::makeRF(*geographicRF));
+    auto *geographicRF = DgGeoSphRF::makeRF(network, datum, earthRadius);
+    auto *geographicDegRF = DgGeoSphDegRF::makeRF(*geographicRF);
 
     // IGEO7 parameters
     DgDVec2D vert0{0.19634954084936207, 1.0172219679233507};
@@ -26,18 +27,18 @@ int main(int argc, char *argv[]) {
     int actualRes = 9;
     DgGridTopology gridTopo = DgGridTopology::Hexagon;
     DgGridMetric gridMetric = DgGridMetric::D6;
+    std::string name = "IGEO7";
     std::string projType = "ISEA";
 
-    auto dggs = std::unique_ptr<const DgIDGGSBase>(DgIDGGSBase::makeRF(network, *geographicRF, vert0, azimuthDegs,
-                                                                       aperture, actualRes + 2, gridTopo, gridMetric,
-                                                                       "IDGGS", projType));
+    auto *dggs = DgIDGGSBase::makeRF(network, *geographicRF, vert0, azimuthDegs, aperture, actualRes + 2, gridTopo,
+                                     gridMetric, name, projType);
 
     auto &dgg = dggs->idggBase(actualRes);
     auto *z7RF = dgg.z7RF();
 
     // Test point in degrees
     DgDVec2D testPoint{5.1214106, 52.0906107};
-    auto locationGeo = std::unique_ptr<const DgLocation>(geographicDegRF->makeLocation(testPoint));
+    auto locationGeo = geographicDegRF->makeLocation(testPoint);
 
     // Convert to the DGG's RF
     DgLocation locationDgg(*locationGeo);
