@@ -44,19 +44,23 @@ int main(int argc, char *argv[]) {
     DgLocation locationDgg(*locationGeo);
     dgg.convert(&locationDgg);
 
+    // Get the geographic cell center
+    DgLocation locationGeoCellCenter(locationDgg);
+    geographicDegRF->convert(&locationGeoCellCenter);
+
     //< Convert to Z7 RF
     DgLocation locationZ7(locationDgg);
     z7RF->convert(&locationZ7);
 
     // Show representations
-    std::cout << locationGeo->asString() << std::endl;
-    std::cout << locationDgg.asString() << std::endl;
-    std::cout << locationZ7.asString() << std::endl;
-    std::cout << locationZ7.asAddressString() << std::endl;
+    std::cout << "       Test point: " << locationGeo->asAddressString() << "\n\n";
+    std::cout << "      Zone center: " << locationGeoCellCenter.asAddressString() << "\n";
+    std::cout << "      DGG Zone ID: " << locationDgg.asString() << "\n";
+    std::cout << "Z7 index (base16): " << locationZ7.asAddressString() << "\n";
 
     // Get the Z7 integer address
     auto addressZ7 = static_cast<const DgAddress<DgZ7Coord> *>(locationZ7.address());
-    std::cout << addressZ7->address().value() << std::endl;
+    std::cout << "Z7 index (base10): " << addressZ7->address().value() << "\n";
 
     return 0;
 }
